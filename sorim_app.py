@@ -22,14 +22,19 @@ st.markdown("""
 st.title("🎵 SORIM")
 st.caption("당신의 감정을 음악으로 만들어드리는 AI 뮤직 파트너")
 
-# ── API 키 입력 (사이드바) ────────────────────────────────
+# ── API 키 자동 로드 (Secrets 우선, 없으면 사이드바 입력) ──
+api_key = st.secrets.get("GROQ_API_KEY", "")
+
 with st.sidebar:
     st.header("⚙️ 설정")
-    api_key = st.text_input(
-        "Groq API 키를 입력하세요",
-        type="password",
-        placeholder="gsk_..."
-    )
+    if not api_key:
+        api_key = st.text_input(
+            "Groq API 키를 입력하세요",
+            type="password",
+            placeholder="gsk_..."
+        )
+    else:
+        st.success("✅ API 키 연결됨")
     st.markdown("---")
     st.markdown("**사용 모델:** llama-3.3-70b-versatile")
     st.markdown("**언어:** 한국어 기본 / 영문 프롬프트 자동 생성")
