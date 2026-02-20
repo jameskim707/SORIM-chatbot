@@ -273,6 +273,8 @@ Define:
 
 [PHASE 3 — LYRIC BRIEF] (if vocal track requested)
 Output between ###LYRICS_START### and ###LYRICS_END###
+First, suggest 3 track title candidates (Korean) with brief reasoning for each.
+Then write:
 Variation A (Direct): [Verse 1][Pre-Chorus][Chorus][Verse 2][Bridge] — clear, universal
 Variation B (Cinematic): Same structure — poetic, layered, visual
 Hook Line: 1-2 lines optimized for 15s hook
