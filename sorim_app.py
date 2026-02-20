@@ -10,145 +10,214 @@ from datetime import datetime
 # PAGE CONFIG
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 st.set_page_config(
-    page_title="SORIM Studio | AI Music Production Suite",
-    page_icon="🎵",
+    page_title="SORIM Studio | AI BGM Production System",
+    page_icon="🎼",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# CSS — PREMIUM DARK THEME
+# CSS — CLEAN WHITE PROFESSIONAL THEME
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    html, body, [class*="css"] {
-        font-family: 'Inter', sans-serif;
-    }
+html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
-    .stApp {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #f1f3f5 100%);
-    }
+.stApp { background: #f8f9fb; }
 
-    /* 헤더 */
-    .sorim-header {
-        background: linear-gradient(90deg, #ffffff 0%, #f0f4ff 100%);
-        border: 1px solid #e2e8f0;
-        border-radius: 16px;
-        padding: 24px 32px;
-        margin-bottom: 24px;
-        box-shadow: 0 4px 32px rgba(0,0,0,0.08);
-    }
-    .sorim-title {
-        font-size: 2.4em;
-        font-weight: 700;
-        background: linear-gradient(90deg, #1e293b, #475569, #0f172a);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin: 0;
-    }
-    .sorim-subtitle {
-        color: #64748b;
-        font-size: 0.95em;
-        margin-top: 6px;
-    }
+/* 헤더 */
+.sorim-header {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #1e293b;
+    border-radius: 8px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+.sorim-title {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    margin: 0;
+}
+.sorim-badge {
+    display: inline-block;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.65em;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    vertical-align: middle;
+}
+.sorim-subtitle {
+    color: #64748b;
+    font-size: 0.85em;
+    margin-top: 4px;
+    font-weight: 400;
+}
 
-    /* 결과물 블록 */
-    .result-block {
-        background: rgba(255,255,255,0.7);
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 20px;
-        margin: 12px 0;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.05);
-        transition: box-shadow 0.2s ease;
-    }
-    .result-block:hover {
-        box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-    }
+/* 워크플로우 스텝 */
+.workflow-bar {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    gap: 8px;
+    overflow-x: auto;
+}
+.wf-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78em;
+    font-weight: 500;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+.wf-step.active { color: #0f172a; font-weight: 600; }
+.wf-step.done { color: #22c55e; }
+.wf-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #e2e8f0;
+}
+.wf-dot.active { background: #0f172a; }
+.wf-dot.done { background: #22c55e; }
+.wf-arrow { color: #cbd5e1; font-size: 0.7em; }
 
-    /* 메트릭 */
-    .metric-box {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        border: 1px solid #e2e8f0;
-        border-radius: 10px;
-        padding: 16px;
-        text-align: center;
-    }
-    .metric-value {
-        font-size: 2em;
-        font-weight: 700;
-        color: #1e293b;
-    }
-    .metric-label {
-        font-size: 0.8em;
-        color: #64748b;
-        margin-top: 4px;
-    }
+/* 메트릭 카드 */
+.metric-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.metric-card {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.metric-val {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1;
+}
+.metric-lbl {
+    font-size: 0.72em;
+    color: #94a3b8;
+    margin-top: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
-    /* 프로젝트 히스토리 */
-    .project-card {
-        background: rgba(255,255,255,0.7);
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 12px;
-        margin: 6px 0;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-    .project-card:hover {
-        border-color: #94a3b8;
-        background: rgba(0,0,0,0.03);
-    }
+/* 프로덕션 모드 버튼 */
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.mode-btn {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.82em;
+    font-weight: 500;
+    color: #374151;
+}
+.mode-btn:hover, .mode-btn.selected {
+    border-color: #0f172a;
+    background: #f8fafc;
+    color: #0f172a;
+}
 
-    /* 채팅 메시지 */
-    .stChatMessage {
-        border-radius: 12px !important;
-        margin: 8px 0 !important;
-    }
+/* 결과 블록 */
+.result-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 10px 0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+.result-label {
+    font-size: 0.72em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
 
-    /* 사이드바 */
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-        border-right: 1px solid #e2e8f0;
-    }
+/* 사이드바 */
+section[data-testid="stSidebar"] {
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+}
 
-    /* expander */
-    .streamlit-expanderHeader {
-        background: #ffffff !important;
-        border-radius: 8px !important;
-        border: 1px solid #e2e8f0 !important;
-    }
+/* expander */
+.streamlit-expanderHeader {
+    background: #f8f9fb !important;
+    border-radius: 6px !important;
+    border: 1px solid #e2e8f0 !important;
+    font-weight: 500 !important;
+    font-size: 0.88em !important;
+}
 
-    /* 구분선 */
-    hr { border-color: #e2e8f0 !important; }
+/* 채팅 */
+.stChatMessage { border-radius: 8px !important; margin: 6px 0 !important; }
 
-    /* 성공 메시지 */
-    .stSuccess {
-        background: rgba(16, 185, 129, 0.1) !important;
-        border: 1px solid rgba(16, 185, 129, 0.3) !important;
-        border-radius: 8px !important;
-    }
+hr { border-color: #e2e8f0 !important; }
+
+.stSuccess {
+    background: #f0fdf4 !important;
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 6px !important;
+    font-size: 0.85em !important;
+}
+
+/* 선택 옵션 박스 */
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 10px 0;
+}
 </style>
 """, unsafe_allow_html=True)
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# SECURITY — API KEY FROM SECRETS ONLY
+# SECURITY
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def get_api_key():
     try:
         key = st.secrets["GROQ_API_KEY"]
-        if not key or len(key) < 10:
-            return None
-        return key
+        return key if key and len(key) > 10 else None
     except Exception:
         return None
 
 API_KEY = get_api_key()
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# SESSION STATE 초기화
+# SESSION STATE
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def init_session():
     defaults = {
@@ -157,192 +226,114 @@ def init_session():
         "current_project": None,
         "total_generated": 0,
         "last_gen_time": None,
-        "last_lyrics": "",
-        "last_prompt": "",
-        "last_strategy": "",
-        "last_summary": "",
-        "last_emotion": "",
+        "workflow_step": 0,
+        "production_mode": None,
+        "selected_genre": None,
+        "selected_mood": None,
+        "selected_use": None,
     }
-    for key, val in defaults.items():
-        if key not in st.session_state:
-            st.session_state[key] = val
+    for k, v in defaults.items():
+        if k not in st.session_state:
+            st.session_state[k] = v
 
 init_session()
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# SYSTEM PROMPT
+# SYSTEM PROMPT — BGM PRODUCTION SYSTEM
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SYSTEM_PROMPT = """
-CRITICAL RULES — MUST FOLLOW ALWAYS:
-1. ALWAYS respond in Korean ONLY. Never use Chinese, Arabic, Japanese, or any other language.
-2. ALWAYS produce COMPLETE and DETAILED outputs. Never give short or vague answers.
-3. Lyrics: Write FULL lyrics — [Verse 1][Pre-Chorus][Chorus][Verse 2][Bridge] — minimum 16 lines.
-4. Do NOT ask unnecessary questions. If enough info exists, produce outputs immediately.
-5. Never mix languages mid-sentence.
-6. STEP 4 music prompts MUST be in English ONLY. Non-negotiable.
-7. Music prompts must be PRODUCTION-GRADE — written as a professional music director's brief.
-8. REPLACE all vague emotional descriptors with concrete acoustic/performance directives.
-9. Always use these EXACT section markers:
+You are SORIM Studio — a professional AI-Directed BGM Production System.
+This is NOT a casual chatbot. Operate as a structured music production director.
+
+CRITICAL RULES:
+1. Respond in Korean ONLY (except STEP 4 music prompts which must be English only).
+2. Produce COMPLETE, DETAILED, production-grade outputs.
+3. STEP 4 music generation prompts: English ONLY, professional music director brief format.
+4. Use these EXACT markers for parsing:
    ###LYRICS_START### ... ###LYRICS_END###
    ###PROMPT_START### ... ###PROMPT_END###
    ###STRATEGY_START### ... ###STRATEGY_END###
    ###SUMMARY_START### ... ###SUMMARY_END###
+5. Minimize unnecessary questions. Use structured intake then produce immediately.
+6. Tone: Professional, directive, minimal. No excessive emoji. No hollow phrases.
 
-[MASTER SYSTEM PROMPT — SORIM STUDIO v5.0]
-You are SORIM, a professional AI Music Production Suite.
-Role: Emotional Lyricist + Music Producer + Content Monetization Strategist.
-Mission: Transform emotion into commercially viable, production-ready music packages.
+PRODUCTION WORKFLOW:
 
-WORKFLOW:
+[PHASE 1 — CONCEPT DEFINITION]
+If user provides production mode, genre, mood, and use case → skip questions, produce immediately.
+Otherwise ask max 2 structured questions using numbered options.
 
-[STEP 1 - INTAKE] Korean
-Max 3 questions. If enough info → skip to STEP 2.
+[PHASE 2 — TRACK DESIGN]
+Define:
+- Track concept (one clear sentence)
+- Target platform and audience
+- Emotional arc (3 stages: open → build → release)
+- Tempo character (slow/mid/uptempo)
+- Instrumentation palette (3-5 core instruments)
 
-[STEP 2 - LYRIC GENERATION] Korean
+[PHASE 3 — LYRIC BRIEF] (if vocal track requested)
 Output between ###LYRICS_START### and ###LYRICS_END###
-Write TWO versions:
-Variation A (접근형): [Verse 1] 4줄 / [Pre-Chorus] 2줄 / [Chorus] 4줄 / [Verse 2] 4줄 / [Bridge] 2줄
-Variation B (시네마틱형): Same structure, more poetic and visual.
-+ Shorts Hook: 1-2 lines
+Variation A (Direct): [Verse 1][Pre-Chorus][Chorus][Verse 2][Bridge] — clear, universal
+Variation B (Cinematic): Same structure — poetic, layered, visual
+Hook Line: 1-2 lines optimized for 15s hook
 
-[STEP 3 - GENRE CURATION] Korean
-1 Primary + 2 Alternative genres with acoustic reasoning (not emotional labels).
-
-[STEP 4 - MUSIC PROMPTS] ★ ENGLISH ONLY — PRODUCTION-GRADE ★
+[PHASE 4 — MUSIC PRODUCTION BRIEF] ★ ENGLISH ONLY ★
 Output between ###PROMPT_START### and ###PROMPT_END###
 
-RULES FOR STEP 4:
-- NO vague emotional words (e.g. do NOT write "emotional", "sad", "beautiful" alone).
-- ALWAYS translate emotion into acoustic terms:
-  BAD: "emotional piano" → GOOD: "felt piano, single-note melody, pp dynamic, 1.4s room reverb, center-panned"
-  BAD: "sad strings" → GOOD: "cello section x2, bowed legato at low bow pressure, sustained whole notes, hall reverb 2.0s decay"
-  BAD: "soft vocals" → GOOD: "female mezzo-soprano, breathy head voice dominant, close-mic (3–6 inch proximity), no vibrato in verse"
-- ALWAYS specify: texture + playing technique + spatial position for every instrument.
-- ALWAYS specify register movement for vocals (e.g. "verse: chest voice F3–A3, chorus: mixed voice up to D5")
-- ALWAYS specify harmony layer timing (e.g. "1-part harmony enters at 0:52, 2 semitones above lead")
-- ALWAYS specify vibrato control (e.g. "no vibrato in verse, light vibrato on held notes in chorus only")
-- ALWAYS include mixing depth: frequency focus, headroom, compression ratio, stereo width per element.
+--- SHORTS VERSION (30s) ---
+[SORIM BGM BRIEF — SHORTS]
+Genre: / Mood: / BPM: (range) / Key: / Time Sig:
+Hook target: by 12-15 seconds
+Instrumentation timeline:
+  0:00-0:05 | [texture + reverb type]
+  0:05-0:13 | [layering entries]
+  0:13-0:25 | [peak arrangement]
+  0:25-0:30 | [resolution]
+Dynamic arc: Intro(30%) > Build(55%) > Peak(85%) > Out(40%)
+Vocal: type / tone / register / harmony / mic proximity / breath notes
+Mix: reverb style / stereo / compression / EQ guidance
+Safety: Do not imitate any specific artist or copyrighted work.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROMPT A — SHORTS VERSION (30 seconds) [ENGLISH ONLY]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- FULL TRACK (2-4 min) ---
+[SORIM BGM BRIEF — FULL TRACK]
+Genre: / Mood: / BPM: (range) / Key + modulation: / Time Sig: / Duration:
+Structure table:
+| Time | Section | Instruments | Intensity |
+|------|---------|-------------|-----------|
+| 0:00 | Intro   | ...         | 25%       |
+| ...  | ...     | ...         | ...       |
+Instrument details: (felt piano / fingerstyle guitar / cello / pad / percussion)
+Dynamic arc: Intro(25%)>V1(40%)>Pre(60%)>Ch1(85%)>V2(45%)>Pre(65%)>Ch2(90%)>Bridge(35%)>FinalCh(95%)>Outro(15%)
+Key modulation: [specify or None]
+Vocal direction: type / tone / register progression / harmony entry / breath notes
+Production: reverb (hall/plate/room per instrument) / stereo width / mix guidance / master target (-14 LUFS)
+Safety: Do not imitate any specific artist or copyrighted work.
 
-**[SORIM MUSIC BRIEF — SHORTS 30s]**
-
-GENRE & MOOD CONTEXT:
-- Genre: [specific subgenre]
-- Acoustic mood translation: [translate emotion → specific sonic descriptors, e.g. "minor key, slow harmonic rhythm, sparse texture, wide dynamic range"]
-- BPM: [range, e.g. 66–72]
-- Key: [e.g. D minor]
-- Time Signature: [e.g. 4/4]
-
-INSTRUMENTATION & SPATIAL MAP (entry timeline):
-- 0:00–0:04 | INTRO: [instrument] — [texture], [playing style], [spatial position], [reverb type & decay]
-- 0:04–0:08 | LAYER 1: [instrument] enters — [playing technique], [dynamic level pp/mp/mf], [position L/C/R]
-- 0:08–0:14 | LAYER 2: [instrument] enters — [texture detail], [articulation], [swell or fade]
-- 0:14–0:24 | HOOK PEAK: [full arrangement directive], [percussion entry if any: style + dynamic]
-- 0:24–0:30 | RESOLUTION: [decay or sustain instruction], [what remains in final 2s]
-
-DYNAMIC HEADROOM MAP:
-- Intro: -18 dBFS (25% intensity) — single element, maximum space
-- Build: -14 dBFS (50%) — 2–3 elements, no compression
-- Hook: -9 dBFS (85%) — full arrangement, 2:1 bus compression max
-- Resolution: -16 dBFS (35%) — natural decay, no limiting
-
-VOCAL PERFORMANCE DIRECTIVE:
-- Voice type: [female/male/duet] — [specific range, e.g. mezzo-soprano Eb3–Bb4]
-- Register: [chest voice / head voice / mixed] — [when each register is used]
-- Breathiness: [level: dry/slightly breathy/breathy] — [specific bars]
-- Vibrato: [none in verse / light on sustained notes only / continuous]
-- Harmony: [yes/no] — if yes: [interval, entry point in seconds, layer count]
-- Mic proximity feel: [close (3–6 inch) / mid (12 inch) / wide]
-- Delivery directive: [specific performance instruction, e.g. "open vowel on chorus peak note, no consonant rush"]
-
-PRODUCTION & MIX DEPTH:
-- Piano/guitar: [frequency focus, e.g. "low-mids rolled off below 200Hz, presence boost at 3kHz"]
-- Vocals: [EQ: high-pass at 120Hz, air shelf +2dB at 12kHz / compression: 3:1 ratio, 10ms attack]
-- Strings/pads: [reverb send: hall 2.0s, predelay 20ms / stereo width: 80%]
-- Master bus: [warm saturation, soft limiting at -1dBFS, target -14 LUFS integrated]
-- Percussion: [none / brush snare: center, -18dBFS / cinematic boom: side-wide, one-shot at hook]
-
-SAFETY: Do NOT imitate any specific artist or copyrighted material. Use general genre aesthetics only.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROMPT B — FULL TRACK (2–4 minutes) [ENGLISH ONLY]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-**[SORIM MUSIC BRIEF — FULL TRACK]**
-
-GENRE & MOOD CONTEXT:
-- Genre: [specific subgenre]
-- Acoustic translation: [concrete sonic descriptors only — no vague emotional words]
-- BPM: [range — may vary per section, e.g. "68–74, rubato feel in bridge"]
-- Key: [primary key] → [modulation key at timestamp]
-- Time Signature: [e.g. 4/4 throughout / or shifts]
-- Target Duration: [e.g. 3:20–3:40]
-
-FULL SONG STRUCTURE & ARRANGEMENT:
-| Timestamp  | Section      | Lead Instrument        | Support Layer              | Intensity | dBFS  |
-|------------|--------------|------------------------|----------------------------|-----------|-------|
-| 0:00–0:12  | Intro        | [instrument + texture] | [pad or silence]           | 20%       | -20   |
-| 0:12–0:40  | Verse 1      | [instrument + style]   | [bass + light perc]        | 38%       | -16   |
-| 0:40–0:52  | Pre-Chorus   | [build element]        | [string swell entry]       | 58%       | -13   |
-| 0:52–1:20  | Chorus 1     | [full arrangement]     | [all layers + harmony]     | 82%       | -9    |
-| 1:20–1:48  | Verse 2      | [richer than V1]       | [added texture]            | 42%       | -15   |
-| 1:48–2:00  | Pre-Chorus 2 | [same + extra layer]   | [wider stereo]             | 62%       | -12   |
-| 2:00–2:28  | Chorus 2     | [+ 1 harmony layer]    | [wider, fuller]            | 88%       | -8    |
-| 2:28–2:48  | Bridge       | [stripped: 1–2 instru] | [silence or breath pad]    | 28%       | -18   |
-| 2:48–3:20  | Final Chorus | [key modulation +full] | [orchestral swell]         | 95%       | -6    |
-| 3:20–3:40  | Outro        | [single instrument]    | [long tail reverb decay]   | 12%       | -22   |
-
-INSTRUMENTATION DETAIL (texture + technique + position):
-- [Instrument 1]: [e.g. "felt piano — weighted keys, single-note RH melody at pp, left-hand sparse block chords, center-panned, 1.2s room reverb"]
-- [Instrument 2]: [e.g. "fingerstyle acoustic guitar — thumb-pluck bass strings, finger-roll upper strings, no pick, panned 30% left, 0.8s plate reverb"]
-- [Instrument 3]: [e.g. "cello x2 — bowed legato, sul tasto (near fingerboard) for darker tone, whole-note sustained harmony, panned 20% right"]
-- [Instrument 4]: [e.g. "ambient string pad — bowed tremolo, filtered above 4kHz, hall reverb 100% wet, stereo width 90%"]
-- [Percussion]: [e.g. "none in verse / brush snare on 2&4 from Pre-Chorus / orchestral kick one-shot at Final Chorus bar 1 only"]
-
-KEY MODULATION DIRECTIVE:
-- Modulation point: [timestamp, e.g. "2:48 — abrupt half-step modulation from D minor to Eb minor for emotional lift"]
-  OR: "No modulation — maintain consistent key throughout for cohesive resolution"
-
-VOCAL PERFORMANCE DIRECTIVE (full track):
-- Voice type: [e.g. "female alto, range C3–G4"]
-- Verse register: [e.g. "chest voice C3–E3, conversational delivery, no vibrato, dry with room reverb only"]
-- Chorus register: [e.g. "mixed voice F3–G4, open vowel on peak notes, light vibrato on held notes >1.5s"]
-- Harmony entry: [e.g. "1-part harmony (interval: major 3rd above) enters at Chorus 2 bar 1, fades at Chorus 2 bar 8"]
-- Bridge delivery: [e.g. "near-whisper, head voice only, extremely close mic, no effects except subtle reverb"]
-- Breath sounds: [keep / edit out] — [rationale]
-- Vibrato control: [no vibrato verse → light vibrato chorus → sustained vibrato final note only]
-
-PRODUCTION & MIX DEPTH:
-- Piano: high-pass 80Hz, low-mid cut -3dB at 320Hz, presence +2dB at 3.5kHz, gentle compression 2:1
-- Acoustic guitar: high-pass 100Hz, air boost +1.5dB at 10kHz, parallel compression 4:1 at 30% blend
-- Cello/strings: hall reverb (2.2s decay, predelay 18ms), stereo width 70–80%, no direct signal
-- Vocals: high-pass 120Hz, de-esser at 6–8kHz, bus compression 3:1 (8ms attack, 80ms release), -14 LUFS
-- Master bus: soft saturation (0.5–1%), transparent limiter ceiling -1dBFS, final target -14 LUFS integrated
-- Stereo imaging: piano/vocals center, guitars 30% L&R, strings 60% L&R, pads full wide
-
-SAFETY: Do NOT imitate any specific artist or copyrighted material. Use genre aesthetic references only.
-
-[STEP 5 - MONETIZATION] Korean
+[PHASE 5 — MARKET STRATEGY]
 Output between ###STRATEGY_START### and ###STRATEGY_END###
-2-4 channels + concrete reasoning + Metadata (Title KR+EN, Tags, Description) + Packaging + Pricing
+Platform fit analysis (YouTube BGM / Shorts / Streaming / Stock / Game BGM)
+Metadata: Title (KR + EN) / Tags / Description / Avoid list
+Packaging: track versions + pricing tier
 
-[STEP 6 - SUMMARY] Korean
+[PHASE 6 — PRODUCTION SUMMARY]
 Output between ###SUMMARY_START### and ###SUMMARY_END###
-Clean final summary + next action for user.
+Concise table: Concept / Genre / BPM / Key / Vocal / Platform / Next action
 
-FAST MODE: "빠르게" → STEP1(1Q) → STEP3 → STEP4A only
-REFUSAL: "저작권 위반 가능성이 있어 도움드리기 어려워요. 비슷한 감성으로 새롭게 만들어드릴게요."
+PRODUCTION MODES:
+- Single Track: one complete BGM package
+- Album Pack: 3-track thematic set (intro/main/outro)
+- Shorts Pack: 3x30s hook-forward variants
+- Target Market: optimized for specific platform (YouTube/Spotify/Stock)
+
+FAST MODE: if user says "빠르게" → skip to PHASE 4 Shorts only.
+REFUSAL: copyright/imitation requests → "해당 요청은 저작권 정책상 처리할 수 없습니다. 유사한 방향으로 새롭게 제작해드릴 수 있습니다."
 """
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# EXTRACTION FUNCTIONS
+# EXTRACTION
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def extract_section(text, start_marker, end_marker):
-    pattern = f"{start_marker}(.*?){end_marker}"
-    match = re.search(pattern, text, re.DOTALL)
+def extract_section(text, start, end):
+    match = re.search(f"{start}(.*?){end}", text, re.DOTALL)
     return match.group(1).strip() if match else ""
 
 def extract_all(text):
@@ -354,39 +345,29 @@ def extract_all(text):
     }
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# ZIP 생성 함수
+# ZIP
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def create_zip(project):
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-        ts = project["timestamp"]
-        if project.get("lyrics"):
-            zf.writestr(f"lyrics.txt", project["lyrics"])
-        if project.get("prompt"):
-            zf.writestr(f"music_prompt.txt", project["prompt"])
-        if project.get("strategy"):
-            zf.writestr(f"monetization.txt", project["strategy"])
-        if project.get("summary"):
-            zf.writestr(f"summary.txt", project["summary"])
-        meta = {k: v for k, v in project.items() if k != "timestamp"}
-        meta["timestamp"] = ts
+        if project.get("lyrics"): zf.writestr("lyrics.txt", project["lyrics"])
+        if project.get("prompt"): zf.writestr("music_brief.txt", project["prompt"])
+        if project.get("strategy"): zf.writestr("market_strategy.txt", project["strategy"])
+        if project.get("summary"): zf.writestr("summary.txt", project["summary"])
+        meta = {k: v for k, v in project.items()}
         zf.writestr("project.json", json.dumps(meta, ensure_ascii=False, indent=2))
     buf.seek(0)
     return buf
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# GROQ API 호출
+# GROQ API
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 def call_groq(messages):
-    url = "https://api.groq.com/openai/v1/chat/completions"
-    headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
-    payload = {
-        "model": "llama-3.3-70b-versatile",
-        "messages": messages,
-        "temperature": 0.75,
-        "max_tokens": 4096
-    }
-    r = requests.post(url, headers=headers, json=payload)
+    r = requests.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+        json={"model": "llama-3.3-70b-versatile", "messages": messages, "temperature": 0.72, "max_tokens": 4096}
+    )
     r.raise_for_status()
     return r.json()["choices"][0]["message"]["content"]
 
@@ -394,205 +375,263 @@ def call_groq(messages):
 # SIDEBAR
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 with st.sidebar:
-    st.markdown("### 🎵 SORIM Studio")
+    st.markdown("**SORIM Studio**")
+    st.caption("AI BGM Production System")
     st.markdown("---")
 
     # 메트릭
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown(f"""
-        <div class='metric-box'>
-            <div class='metric-value'>{st.session_state.total_generated}</div>
-            <div class='metric-label'>생성된 곡</div>
-        </div>""", unsafe_allow_html=True)
-    with col2:
-        last_time = st.session_state.last_gen_time
-        display_time = last_time.strftime("%H:%M") if last_time else "—"
-        st.markdown(f"""
-        <div class='metric-box'>
-            <div class='metric-value' style='font-size:1.3em'>{display_time}</div>
-            <div class='metric-label'>마지막 생성</div>
-        </div>""", unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.metric("생성된 트랙", st.session_state.total_generated)
+    with c2:
+        t = st.session_state.last_gen_time
+        st.metric("마지막 생성", t.strftime("%H:%M") if t else "—")
+
+    st.markdown("---")
+
+    # 프로덕션 모드 선택
+    st.markdown("**프로덕션 모드**")
+    modes = ["Single Track", "Album Pack", "Shorts Pack", "Target Market"]
+    selected_mode = st.radio("", modes, label_visibility="collapsed",
+                             index=modes.index(st.session_state.production_mode)
+                             if st.session_state.production_mode in modes else 0)
+    st.session_state.production_mode = selected_mode
+
+    st.markdown("---")
+
+    # 빠른 설정
+    st.markdown("**빠른 설정**")
+    genre = st.selectbox("장르", [
+        "선택 안함", "시네마틱 발라드", "어쿠스틱 팝", "Lo-fi",
+        "국악 퓨전", "재즈", "R&B", "힙합", "EDM", "인디 팝", "클래식 크로스오버"
+    ])
+    mood = st.selectbox("무드", [
+        "선택 안함", "그리움/향수", "해방감", "설렘", "위로",
+        "활력", "차분함", "긴장감", "감동", "중립 BGM"
+    ])
+    use_case = st.selectbox("용도", [
+        "선택 안함", "유튜브 BGM", "숏츠/릴스", "스트리밍",
+        "스톡 뮤직", "인디 게임 BGM", "광고/브랜드", "명상/힐링"
+    ])
+    st.session_state.selected_genre = genre
+    st.session_state.selected_mood = mood
+    st.session_state.selected_use = use_case
 
     st.markdown("---")
 
     # 프로젝트 히스토리
-    st.markdown("### 📁 프로젝트 히스토리")
+    st.markdown("**프로젝트 히스토리**")
     if st.session_state.projects:
-        project_labels = [
-            f"🎵 {p['timestamp']} | {p.get('emotion','')[:15]}..."
-            for p in reversed(st.session_state.projects)
-        ]
-        selected = st.selectbox("프로젝트 선택", project_labels, label_visibility="collapsed")
-        idx = len(st.session_state.projects) - 1 - project_labels.index(selected)
-
+        labels = [f"{p['timestamp']} | {p.get('concept','')[:12]}..."
+                  for p in reversed(st.session_state.projects)]
+        sel = st.selectbox("", labels, label_visibility="collapsed")
+        idx = len(st.session_state.projects) - 1 - labels.index(sel)
         col_a, col_b = st.columns(2)
         with col_a:
-            if st.button("📂 불러오기", use_container_width=True):
-                p = st.session_state.projects[idx]
-                st.session_state.last_lyrics = p.get("lyrics", "")
-                st.session_state.last_prompt = p.get("prompt", "")
-                st.session_state.last_strategy = p.get("strategy", "")
-                st.session_state.last_summary = p.get("summary", "")
-                st.session_state.current_project = p
+            if st.button("불러오기", use_container_width=True):
+                st.session_state.current_project = st.session_state.projects[idx]
                 st.rerun()
         with col_b:
-            if st.button("🗑️ 전체삭제", use_container_width=True):
+            if st.button("전체삭제", use_container_width=True):
                 st.session_state.projects = []
                 st.rerun()
     else:
-        st.caption("아직 생성된 프로젝트가 없어요")
+        st.caption("생성된 프로젝트 없음")
 
     st.markdown("---")
 
     # 내보내기
-    st.markdown("### 💾 내보내기")
-    current = st.session_state.current_project
-
-    if current:
+    st.markdown("**내보내기**")
+    cp = st.session_state.current_project
+    if cp:
         today = datetime.now().strftime("%Y%m%d_%H%M")
-
-        if current.get("lyrics"):
-            st.download_button("🎤 가사 TXT", current["lyrics"],
-                             file_name=f"SORIM_가사_{today}.txt", use_container_width=True)
-        if current.get("prompt"):
-            st.download_button("🎼 프롬프트 TXT", current["prompt"],
-                             file_name=f"SORIM_프롬프트_{today}.txt", use_container_width=True)
-
-        # ZIP 전체 다운로드
-        zip_buf = create_zip(current)
-        st.download_button(
-            "📦 전체 ZIP 다운로드",
-            zip_buf,
-            file_name=f"SORIM_프로젝트_{today}.zip",
-            mime="application/zip",
-            use_container_width=True
-        )
+        if cp.get("lyrics"):
+            st.download_button("가사 TXT", cp["lyrics"],
+                               file_name=f"SORIM_lyrics_{today}.txt", use_container_width=True)
+        if cp.get("prompt"):
+            st.download_button("프롬프트 TXT", cp["prompt"],
+                               file_name=f"SORIM_brief_{today}.txt", use_container_width=True)
+        zb = create_zip(cp)
+        st.download_button("전체 ZIP", zb,
+                           file_name=f"SORIM_project_{today}.zip",
+                           mime="application/zip", use_container_width=True)
     else:
-        st.caption("프로젝트를 생성하거나 불러오세요")
+        st.caption("프로젝트 생성 후 활성화됩니다")
 
     st.markdown("---")
-
-    # 대화 초기화
-    if st.button("🔄 새 대화 시작", use_container_width=True):
-        st.session_state.messages = []
-        st.session_state.current_project = None
-        st.session_state.last_lyrics = ""
-        st.session_state.last_prompt = ""
-        st.session_state.last_strategy = ""
-        st.session_state.last_summary = ""
+    if st.button("새 프로젝트", use_container_width=True):
+        for k in ["messages", "current_project", "workflow_step"]:
+            st.session_state[k] = [] if k == "messages" else (None if k == "current_project" else 0)
         st.rerun()
-
-    st.markdown("---")
-    st.caption("**Fast Mode:** '빠르게' 입력")
-    st.caption("v4.0 | Powered by Groq + LLaMA")
+    st.caption("v4.1 · Groq · LLaMA 3.3")
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 메인 헤더
+# 메인 — 헤더
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 st.markdown("""
 <div class='sorim-header'>
-    <div class='sorim-title'>🎵 SORIM Studio</div>
-    <div class='sorim-subtitle'>Professional AI Music Production Suite · 당신의 감정을 음악으로</div>
+    <div class='sorim-title'>SORIM Studio
+        <span class='sorim-badge'>BGM PRODUCTION</span>
+    </div>
+    <div class='sorim-subtitle'>AI-Directed BGM Production System · 콘셉트에서 완성 브리프까지</div>
 </div>
 """, unsafe_allow_html=True)
 
-# API 키 오류 처리
 if not API_KEY:
-    st.error("⚠️ 서비스 설정 오류가 발생했습니다. 관리자에게 문의해주세요.")
+    st.error("서비스 설정 오류입니다. 관리자에게 문의하세요.")
     st.stop()
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 현재 프로젝트 결과물 표시 (expander)
+# 워크플로우 진행 바
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+steps = ["Concept", "Track Design", "Brief", "Hook", "Export"]
+step = st.session_state.workflow_step
+
+wf_html = "<div class='workflow-bar'>"
+for i, s in enumerate(steps):
+    cls = "done" if i < step else ("active" if i == step else "")
+    dot_cls = cls
+    wf_html += f"<div class='wf-step {cls}'><div class='wf-dot {dot_cls}'></div>{s}</div>"
+    if i < len(steps) - 1:
+        wf_html += "<span class='wf-arrow'>›</span>"
+wf_html += "</div>"
+st.markdown(wf_html, unsafe_allow_html=True)
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 메트릭 대시보드
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+m1, m2, m3, m4 = st.columns(4)
+with m1:
+    st.markdown(f"""<div class='metric-card'>
+        <div class='metric-val'>{st.session_state.total_generated}</div>
+        <div class='metric-lbl'>Total Tracks</div></div>""", unsafe_allow_html=True)
+with m2:
+    mode_display = st.session_state.production_mode or "—"
+    st.markdown(f"""<div class='metric-card'>
+        <div class='metric-val' style='font-size:1em;padding-top:6px'>{mode_display}</div>
+        <div class='metric-lbl'>Mode</div></div>""", unsafe_allow_html=True)
+with m3:
+    genre_display = st.session_state.selected_genre if st.session_state.selected_genre != "선택 안함" else "—"
+    st.markdown(f"""<div class='metric-card'>
+        <div class='metric-val' style='font-size:0.95em;padding-top:6px'>{genre_display}</div>
+        <div class='metric-lbl'>Genre</div></div>""", unsafe_allow_html=True)
+with m4:
+    use_display = st.session_state.selected_use if st.session_state.selected_use != "선택 안함" else "—"
+    st.markdown(f"""<div class='metric-card'>
+        <div class='metric-val' style='font-size:0.9em;padding-top:6px'>{use_display}</div>
+        <div class='metric-lbl'>Target</div></div>""", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 현재 프로젝트 결과물
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 cp = st.session_state.current_project
 if cp:
-    st.markdown("#### 📋 현재 프로젝트 결과물")
-    col1, col2 = st.columns(2)
-    with col1:
+    st.markdown("#### 현재 프로젝트")
+    c1, c2 = st.columns(2)
+    with c1:
         if cp.get("lyrics"):
-            with st.expander("🎤 가사", expanded=False):
+            with st.expander("가사 (Lyrics)", expanded=False):
                 st.markdown(cp["lyrics"])
         if cp.get("strategy"):
-            with st.expander("💰 수익화 전략", expanded=False):
+            with st.expander("마켓 전략 (Strategy)", expanded=False):
                 st.markdown(cp["strategy"])
-    with col2:
+    with c2:
         if cp.get("prompt"):
-            with st.expander("🎼 음악 프롬프트 (영문)", expanded=False):
+            with st.expander("프로덕션 브리프 (Music Brief)", expanded=False):
                 st.code(cp["prompt"], language="markdown")
         if cp.get("summary"):
-            with st.expander("📦 최종 요약", expanded=False):
+            with st.expander("최종 요약 (Summary)", expanded=False):
                 st.markdown(cp["summary"])
     st.markdown("---")
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 대화 표시
+# 대화
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 if not st.session_state.messages:
-    welcome = "안녕하세요, 저는 SORIM이에요 🎵\n\n당신의 감정과 이야기를 음악으로 만들어드리는 AI 뮤직 파트너예요.\n\n지금 어떤 감정이나 장면을 음악으로 담고 싶으신가요?\n천천히 말씀해 주세요 — 어떤 이야기든 괜찮아요."
+    welcome = (
+        "**SORIM Studio에 오신 것을 환영합니다.**\n\n"
+        "왼쪽 사이드바에서 프로덕션 모드, 장르, 무드, 용도를 먼저 설정하세요.\n\n"
+        "설정 완료 후 제작할 BGM의 주제나 콘셉트를 입력하시면 "
+        "트랙 디자인부터 프로덕션 브리프, 마켓 전략까지 한 번에 제작합니다.\n\n"
+        "예시: `고향 귀성길, 중년의 감성, 국악 퓨전` / `카페 Lo-fi BGM, 잔잔한 집중` / `빠르게`"
+    )
     st.session_state.messages.append({"role": "assistant", "content": welcome})
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 입력 처리
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-if prompt := st.chat_input("감정이나 상황을 말씀해 주세요..."):
+if prompt := st.chat_input("BGM 콘셉트, 주제, 또는 감정을 입력하세요..."):
+    # 사이드바 설정값 자동 주입
+    context_parts = []
+    if st.session_state.production_mode:
+        context_parts.append(f"프로덕션 모드: {st.session_state.production_mode}")
+    if st.session_state.selected_genre != "선택 안함":
+        context_parts.append(f"장르: {st.session_state.selected_genre}")
+    if st.session_state.selected_mood != "선택 안함":
+        context_parts.append(f"무드: {st.session_state.selected_mood}")
+    if st.session_state.selected_use != "선택 안함":
+        context_parts.append(f"용도: {st.session_state.selected_use}")
+
+    enriched = prompt
+    if context_parts:
+        enriched = f"[설정값: {' / '.join(context_parts)}]\n{prompt}"
+
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner("SORIM이 음악을 구상하고 있어요... 🎵"):
+        with st.spinner("프로덕션 브리프 생성 중..."):
             try:
-                api_messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-                for msg in st.session_state.messages:
-                    api_messages.append({"role": msg["role"], "content": msg["content"]})
+                api_msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
+                for m in st.session_state.messages[:-1]:
+                    api_msgs.append({"role": m["role"], "content": m["content"]})
+                api_msgs.append({"role": "user", "content": enriched})
 
-                result = call_groq(api_messages)
-
-                # 마커 제거 후 표시
-                display_result = re.sub(r"###\w+_(START|END)###", "", result).strip()
-                st.markdown(display_result)
+                result = call_groq(api_msgs)
+                display = re.sub(r"###\w+_(START|END)###", "", result).strip()
+                st.markdown(display)
                 st.session_state.messages.append({"role": "assistant", "content": result})
 
-                # 결과물 추출
                 extracted = extract_all(result)
 
-                # 프로젝트 저장
                 if any(extracted.values()):
                     now = datetime.now()
                     project = {
                         "timestamp": now.strftime("%m/%d %H:%M"),
-                        "emotion": prompt[:30],
+                        "concept": prompt[:30],
+                        "mode": st.session_state.production_mode,
                         **extracted
                     }
                     st.session_state.projects.append(project)
                     st.session_state.current_project = project
                     st.session_state.total_generated += 1
                     st.session_state.last_gen_time = now
+                    st.session_state.workflow_step = min(4, st.session_state.workflow_step + 1)
 
-                    # 결과물 expander 표시
-                    st.markdown("---")
-                    st.success("✅ 프로젝트가 저장됐어요! 사이드바에서 다운로드하세요.")
+                    st.success("프로젝트가 저장되었습니다. 사이드바에서 내보내기가 가능합니다.")
 
                     c1, c2 = st.columns(2)
                     with c1:
                         if extracted["lyrics"]:
-                            with st.expander("🎤 가사 보기", expanded=True):
+                            with st.expander("가사", expanded=True):
                                 st.markdown(extracted["lyrics"])
                         if extracted["strategy"]:
-                            with st.expander("💰 수익화 전략", expanded=False):
+                            with st.expander("마켓 전략", expanded=False):
                                 st.markdown(extracted["strategy"])
                     with c2:
                         if extracted["prompt"]:
-                            with st.expander("🎼 음악 프롬프트 (영문)", expanded=True):
+                            with st.expander("프로덕션 브리프 (영문)", expanded=True):
                                 st.code(extracted["prompt"], language="markdown")
                         if extracted["summary"]:
-                            with st.expander("📦 최종 요약", expanded=False):
+                            with st.expander("최종 요약", expanded=False):
                                 st.markdown(extracted["summary"])
 
-            except Exception as e:
-                st.error(f"❌ 오류가 발생했어요. 잠시 후 다시 시도해주세요.")
+            except Exception:
+                st.error("오류가 발생했습니다. 잠시 후 다시 시도해주세요.")
