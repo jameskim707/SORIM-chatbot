@@ -23,54 +23,64 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-.stApp { background: #f8f9fb; }
+.stApp { background: linear-gradient(180deg, #faf9f7 0%, #f5f3ef 60%, #f2f0ec 100%); }
 
 .sorim-header {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-left: 4px solid #0f172a;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #faf9f7 100%);
+    border: 1px solid #ddd8d0;
+    border-left: 4px solid #1a1f3c;
+    border-radius: 10px;
     padding: 18px 24px;
     margin-bottom: 16px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 12px rgba(26,31,60,0.08), 0 1px 4px rgba(0,0,0,0.04);
 }
-.sorim-title { font-size: 1.6em; font-weight: 700; color: #0f172a; margin: 0; }
+.sorim-title { font-size: 1.6em; font-weight: 700; color: #12172b; margin: 0; letter-spacing: -0.3px; }
 .sorim-badge {
-    display: inline-block; background: #0f172a; color: #fff;
+    display: inline-block; background: #1a1f3c; color: #fff;
     font-size: 0.6em; font-weight: 600; padding: 2px 8px;
     border-radius: 4px; margin-left: 8px; letter-spacing: 1px; vertical-align: middle;
 }
-.sorim-sub { color: #64748b; font-size: 0.82em; margin-top: 3px; }
+.sorim-sub { color: #52525b; font-size: 0.82em; margin-top: 3px; font-weight: 400; }
 
 .wf-bar {
-    display: flex; align-items: center; background: #fff;
-    border: 1px solid #e2e8f0; border-radius: 8px;
+    display: flex; align-items: center; background: #ffffff;
+    border: 1px solid #ddd8d0; border-radius: 8px;
     padding: 10px 18px; margin-bottom: 16px; gap: 6px; overflow-x: auto;
+    box-shadow: 0 1px 4px rgba(26,31,60,0.04);
 }
 .wf-step { display: flex; align-items: center; gap: 5px; font-size: 0.75em; font-weight: 500; color: #94a3b8; white-space: nowrap; }
-.wf-step.active { color: #0f172a; font-weight: 700; }
+.wf-step.active { color: #1a1f3c; font-weight: 700; }
 .wf-step.done { color: #22c55e; }
 .wf-dot { width: 7px; height: 7px; border-radius: 50%; background: #e2e8f0; }
-.wf-dot.active { background: #0f172a; }
+.wf-dot.active { background: #1a1f3c; }
 .wf-dot.done { background: #22c55e; }
 .wf-arrow { color: #cbd5e1; font-size: 0.7em; }
 
 .metric-card {
-    background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
-    padding: 12px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    background: #ffffff; border: 1px solid #e0dbd4; border-radius: 10px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 8px rgba(26,31,60,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s ease;
 }
-.metric-val { font-size: 1.6em; font-weight: 700; color: #0f172a; line-height: 1; }
+.metric-card:hover {
+    box-shadow: 0 4px 16px rgba(26,31,60,0.10), 0 1px 4px rgba(0,0,0,0.05);
+}
+.metric-val { font-size: 1.6em; font-weight: 700; color: #12172b; line-height: 1; }
 .metric-lbl { font-size: 0.68em; color: #94a3b8; margin-top: 3px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
 .form-card {
-    background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px;
+    background: #ffffff; border: 1px solid #ddd8d0; border-radius: 12px;
     padding: 20px 24px; margin-bottom: 16px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    box-shadow: 0 3px 14px rgba(26,31,60,0.07), 0 1px 4px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s ease;
+}
+.form-card:focus-within {
+    box-shadow: 0 4px 20px rgba(26,31,60,0.10), 0 0 0 2px rgba(26,31,60,0.06);
 }
 .form-title {
-    font-size: 0.78em; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: #64748b; margin-bottom: 14px;
-    border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;
+    font-size: 0.75em; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.2px; color: #44403c; margin-bottom: 14px;
+    border-bottom: 1px solid #e8e3dc; padding-bottom: 8px;
 }
 
 .preset-btn {
@@ -86,7 +96,7 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 }
 .result-label {
     font-size: 0.68em; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: #94a3b8; margin-bottom: 8px;
+    letter-spacing: 1px; color: #78716c; margin-bottom: 8px;
 }
 
 .version-tag {
@@ -96,15 +106,28 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 }
 .version-tag.active { background: #0f172a; color: #fff; border-color: #0f172a; }
 
-section[data-testid="stSidebar"] { background: #ffffff; border-right: 1px solid #e2e8f0; }
+section[data-testid="stSidebar"] { background: linear-gradient(180deg, #faf9f7 0%, #f5f3ef 100%); border-right: 1px solid #ddd8d0; }
 .streamlit-expanderHeader {
-    background: #f8f9fb !important; border-radius: 6px !important;
-    border: 1px solid #e2e8f0 !important; font-size: 0.85em !important; font-weight: 500 !important;
+    background: #f5f3ef !important; border-radius: 8px !important;
+    border: 1px solid #ddd8d0 !important; font-size: 0.85em !important; font-weight: 500 !important;
 }
 .stChatMessage { border-radius: 8px !important; margin: 4px 0 !important; }
-hr { border-color: #e2e8f0 !important; }
+hr { border-color: #e0dbd4 !important; }
 .stSuccess { background: #f0fdf4 !important; border: 1px solid #bbf7d0 !important; border-radius: 6px !important; font-size: 0.82em !important; }
-.stButton button { border-radius: 6px !important; font-weight: 500 !important; font-size: 0.85em !important; }
+.stButton button { 
+    border-radius: 7px !important; font-weight: 500 !important; font-size: 0.85em !important;
+    transition: all 0.15s ease !important;
+}
+.stButton button[kind="primary"] {
+    background: linear-gradient(135deg, #c0533a 0%, #b84d35 100%) !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(192,83,58,0.25) !important;
+}
+.stButton button[kind="primary"]:hover {
+    background: linear-gradient(135deg, #b84d35 0%, #a84430 100%) !important;
+    box-shadow: 0 4px 14px rgba(192,83,58,0.35) !important;
+    transform: translateY(-1px) !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -555,8 +578,9 @@ concept = st.text_area(
 # 추가 지시사항 (접기)
 with st.expander("추가 지시사항 (선택)", expanded=False):
     additional = st.text_area("악기, 참고 분위기, 특별 요청 등", height=60, placeholder="예: 가야금 필수 포함, 드럼 없이, 잔향이 많은 사운드...")
-
-additional = additional if 'additional' in dir() else ""
+    
+if 'additional' not in dir():
+    additional = ""
 
 generate_col, clear_col = st.columns([3, 1])
 with generate_col:
