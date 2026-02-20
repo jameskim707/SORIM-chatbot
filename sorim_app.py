@@ -28,28 +28,28 @@ st.markdown("""
     }
 
     .stApp {
-        background: linear-gradient(135deg, #f0faf5 0%, #e8f8f0 50%, #f5fdf8 100%);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #f1f3f5 100%);
     }
 
     /* 헤더 */
     .sorim-header {
-        background: linear-gradient(90deg, #d4f5e9 0%, #c8f0e0 100%);
-        border: 1px solid #6fcfa0;
+        background: linear-gradient(90deg, #ffffff 0%, #f0f4ff 100%);
+        border: 1px solid #e2e8f0;
         border-radius: 16px;
         padding: 24px 32px;
         margin-bottom: 24px;
-        box-shadow: 0 4px 32px rgba(80, 200, 140, 0.2);
+        box-shadow: 0 4px 32px rgba(0,0,0,0.08);
     }
     .sorim-title {
         font-size: 2.4em;
         font-weight: 700;
-        background: linear-gradient(90deg, #10b981, #34d399, #059669);
+        background: linear-gradient(90deg, #1e293b, #475569, #0f172a);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: 0;
     }
     .sorim-subtitle {
-        color: #374151;
+        color: #64748b;
         font-size: 0.95em;
         margin-top: 6px;
     }
@@ -57,21 +57,21 @@ st.markdown("""
     /* 결과물 블록 */
     .result-block {
         background: rgba(255,255,255,0.7);
-        border: 1px solid rgba(80, 200, 140, 0.3);
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 20px;
         margin: 12px 0;
-        box-shadow: 0 2px 16px rgba(80, 200, 140, 0.1);
+        box-shadow: 0 2px 16px rgba(0,0,0,0.05);
         transition: box-shadow 0.2s ease;
     }
     .result-block:hover {
-        box-shadow: 0 4px 24px rgba(80, 200, 140, 0.25);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.1);
     }
 
     /* 메트릭 */
     .metric-box {
-        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-        border: 1px solid #6ee7b7;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
         border-radius: 10px;
         padding: 16px;
         text-align: center;
@@ -79,18 +79,18 @@ st.markdown("""
     .metric-value {
         font-size: 2em;
         font-weight: 700;
-        color: #059669;
+        color: #1e293b;
     }
     .metric-label {
         font-size: 0.8em;
-        color: #374151;
+        color: #64748b;
         margin-top: 4px;
     }
 
     /* 프로젝트 히스토리 */
     .project-card {
         background: rgba(255,255,255,0.7);
-        border: 1px solid rgba(80, 200, 140, 0.2);
+        border: 1px solid #e2e8f0;
         border-radius: 8px;
         padding: 12px;
         margin: 6px 0;
@@ -98,8 +98,8 @@ st.markdown("""
         transition: all 0.2s;
     }
     .project-card:hover {
-        border-color: #10b981;
-        background: rgba(16, 185, 129, 0.08);
+        border-color: #94a3b8;
+        background: rgba(0,0,0,0.03);
     }
 
     /* 채팅 메시지 */
@@ -110,19 +110,19 @@ st.markdown("""
 
     /* 사이드바 */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
-        border-right: 1px solid rgba(80, 200, 140, 0.3);
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border-right: 1px solid #e2e8f0;
     }
 
     /* expander */
     .streamlit-expanderHeader {
-        background: rgba(255,255,255,0.6) !important;
+        background: #ffffff !important;
         border-radius: 8px !important;
-        border: 1px solid rgba(80, 200, 140, 0.2) !important;
+        border: 1px solid #e2e8f0 !important;
     }
 
     /* 구분선 */
-    hr { border-color: rgba(80, 200, 140, 0.2) !important; }
+    hr { border-color: #e2e8f0 !important; }
 
     /* 성공 메시지 */
     .stSuccess {
