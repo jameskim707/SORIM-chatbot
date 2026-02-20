@@ -555,8 +555,8 @@ concept = st.text_area(
 # 추가 지시사항 (접기)
 with st.expander("추가 지시사항 (선택)", expanded=False):
     additional = st.text_area("악기, 참고 분위기, 특별 요청 등", height=60, placeholder="예: 가야금 필수 포함, 드럼 없이, 잔향이 많은 사운드...")
-else:
-    additional = ""
+
+additional = additional if 'additional' in dir() else ""
 
 generate_col, clear_col = st.columns([3, 1])
 with generate_col:
